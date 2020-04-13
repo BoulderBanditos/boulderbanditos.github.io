@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title>CU SPRINT LIVES HERE</title>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="shortcut icon" href="/TemplateData/favicon.ico">
-    <link href="/TemplateData/style.css">
-    <script src="/TemplateData/UnityProgress.js"></script>
-    <script src="/Build/UnityLoader.js"></script>
+    <meta http-equiv="Content-Type" content="text/html">
+    <title><% title %></title>
+    <link href="../resources/TemplateData/favicon.ico">
+    <link href="../resources/TemplateData/style.css">
+    <script src="../resources/TemplateData/UnityProgress.js"></script>
+    <script src="../resources/Build/UnityLoader.js"></script>
     <script>
-      console.log('test1');
-      var unityInstance = UnityLoader.instantiate("unityContainer", "/Build/game.json", {onProgress: UnityProgress});
-      console.log('test2');
+      var unityInstance = UnityLoader.instantiate("unityContainer", "../resources/Build/game.json", {onProgress: UnityProgress});
     </script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -19,5 +17,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <% if(typeof local_css == 'string' && local_css){ %>
+      <link href="../resources/css/<%=local_css%>" rel="stylesheet">
+    <% } %>
   </head>
-<body>
+  <body>

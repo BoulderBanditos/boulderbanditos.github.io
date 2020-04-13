@@ -1,0 +1,10 @@
+body {
+  background-color: black;
+  background-image: url("../img/weblogo.png");
+  background-repeat: repeat-x, repeat y;
+}
+.box{
+  max-width: 800px;
+  background-color: gold;
+  align-content: center;
+}
