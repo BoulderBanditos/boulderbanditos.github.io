@@ -61,24 +61,24 @@ app.get('/login', function(req,res){
   });
 });
 
-app.post('/login', function(req, res) {
-//logic to cvalidate username
-var userne;
-console.log(request.body.username);
-console.log(request.body.password);
-
-//db quey to check if they are cvalidate
-
-//sucess
-var sessionkey = "randomly generated string";
-//stre sesssion key against the user in the table
-//redirect orrender the user /home?sessionkey=sessionke
-
-
-
-});
+// app.post('/login', function(req, res) {
+// //logic to cvalidate username
+// var userne;
+// console.log(request.body.username);
+// console.log(request.body.password);
+//
+// //db quey to check if they are cvalidate
+//
+// //sucess
+// var sessionkey = "randomly generated string";
+// //stre sesssion key against the user in the table
+// //redirect orrender the user /home?sessionkey=sessionke
+//
+//
+//
+// });
 
 
 //app.listen(3000);
-// app.listen(process.env.PORT);
+app.listen(process.env.PORT);
 console.log('3000 is the magic port');
