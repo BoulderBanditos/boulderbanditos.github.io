@@ -1,0 +1,15 @@
+<% include ../partials/header.ejs %>
+<% include ../partials/menu.ejs %>
+    <div class="regform">
+      <h1> Register to play CU Sprint</h1>
+      <form action = "/submit" method="post">
+          <input type="text" name="fname" placeholder="First Name" required>
+          <input type="text" name="lname" placeholder="Last Name" required>
+          <input type="text" name="username" placeholder="Username" required>
+          <input type="password" name="pwd" placeholder="Password" required>
+          <input type="password" name="cpwd" placeholder="Confirm Password" required>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </body>
+</html>
