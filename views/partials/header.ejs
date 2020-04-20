@@ -12,6 +12,9 @@
     <% if(typeof local_css == 'string' && local_css){ %>
       <link href="../resources/css/<%=local_css%>" rel="stylesheet">
     <% } %>
+    <% if(typeof local_js == 'string' && local_js){ %>
+      <script src="../resources/js/<%=local_css%>"></script>
+    <% } %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   </head>
 <body>

@@ -1,0 +1,38 @@
+.regform{
+  margin: auto;
+  width: 50%;
+  font-family: Tahoma, sans-serif;
+  display:flex;
+}
+.regform h1{
+  text-align: center;
+  color: #4d4d4d;
+  font-size: 24px;
+  padding: 20px 0 20px 0;
+}
+.regform input[type="password"],
+.regform input[type="text"] {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #dddddd;
+  margin-bottom: 15px;
+  box-sizing:border-box;
+}
+.regform input[type="submit"] {
+  width: 100%;
+  padding: 15px;
+  background-color: #535b63;
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-weight: bold;
+  color: #ffffff;
+}
+label {
+  float: left;
+}
+
+h1 {
+  margin:auto;
+  width: 50%;
+}
