@@ -46,12 +46,14 @@ app.get('/', function(req,res){
 })
 
 app.get('/home', function(req,res){
-	if(req.session.name===null){
+	if(req.session.name===undefined){
 		res.redirect('/login');
 	}
-  res.render('pages/index', {
-    title: "Home of CU-Sprint"
-  });
+	else if(req.session.name!==undefined){
+		res.render('pages/index', {
+			title: "Home of CU-Sprint"
+		});
+	}
 });
 
 
@@ -59,19 +61,24 @@ app.get('/leaderboards', function(req, res){
 	if(req.session.name===undefined){
 		res.redirect('/login');
 	}
-  res.render('pages/leaderboards', {
-    title: "Leaderboards"
-  });
+	else if(req.session.name!==undefined){
+		res.render('pages/leaderboards', {
+	    title: "Leaderboards"
+	  });
+	}
+
 });
 
 app.get('/game', function(req, res){
 	if(req.session.name===undefined){
 		res.redirect('/login');
 	}
-  res.render('pages/game', {
-    title: "CU Sprint Lives Here!",
-    local_css: "game.css"
-  });
+	else if(req.session.name!==undefined){
+		res.render('pages/game', {
+	    title: "CU Sprint Lives Here!",
+	    local_css: "game.css"
+	  });
+	}
 });
 
 // ........blog?session_key="sessionkey u sent when logged in"
@@ -131,8 +138,7 @@ app.get('/login', function(req,res){
 
 app.post('/auth', function(req, res) {
 	var username = req.body.username;
-	var password = ;
-	if(username && password){
+	if(username && req.body.password){
 		db.any('SELECT * FROM users WHERE username = $[usr]', {
 			usr: username
 		})
@@ -146,7 +152,7 @@ app.post('/auth', function(req, res) {
 						res.redirect('/home');
 					}
 					if(!success){ // if the password is incorrect
-						console.log('Super wrong password dummy')
+						console.log('Super wrong password dummy');
 						res.redirect('back');
 					}
 					if(err){
@@ -156,8 +162,9 @@ app.post('/auth', function(req, res) {
 				});
 			})
 			.catch(error => {
+				console.log("This is where a non-existant user errror is sent");
 				console.log('error', error);
-				res.redirect('/login');
+				res.redirect('back');
 			})
 
 
