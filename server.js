@@ -87,9 +87,11 @@ app.get('/blog', function(req,res){
 		res.redirect('/login');
 	}
 //make a db query toc echk if the session is there
-  res.render('pages/blog', {
-    title: "Blog"
-  });
+	else if(req.session.name!==undefined){
+	  res.render('pages/blog', {
+	    title: "Blog"
+	  });
+	}
 });
 
 app.get('/register', function(req, res){
@@ -105,26 +107,32 @@ app.post('/submit', function(req,res){
   var username = req.body.username;
   var pwd = req.body.pwd;
 	var pwd2 = req.body.cpwd;
-	console.log('name:', firstname+ ' '+ lastname);
-	console.log('password: ', pwd+ ' || ' + pwd2);
-	bcrypt.hash(pwd, saltRounds, function(err, hash){
-		console.log(hash);
-		db.none('INSERT INTO users(username, firstname, lastname, password) VALUES (${username}, ${firstname}, ${lastname}, ${pwd})',
-			{
-				username: username,
-				firstname: firstname,
-				lastname: lastname,
-				pwd: hash
+	if(pwd !== pwd2){
+		console.log("Passwords don't match");
+		res.redirect('/register');
+	}
+	else{
+		console.log('name:', firstname+ ' '+ lastname);
+		console.log('password: ', pwd+ ' || ' + pwd2);
+		bcrypt.hash(pwd, saltRounds, function(err, hash){
+			console.log(hash);
+			db.none('INSERT INTO users(username, firstname, lastname, password) VALUES (${username}, ${firstname}, ${lastname}, ${pwd})',
+				{
+					username: username,
+					firstname: firstname,
+					lastname: lastname,
+					pwd: hash
+				})
+		  	.then(function(result) {
+					console.log('Profile added to DB');
+					res.redirect('/login');
+				})
+				.catch(function(error){
+					console.log('error:', error);
+					res.redirect('back');
+				})
 			})
-	  	.then(function(result) {
-				console.log('Profile added to DB');
-				res.redirect('/login');
-			})
-			.catch(function(error){
-				console.log('error:', error);
-				res.redirect('back');
-			})
-		})
+	}
 });
 
 app.get('/login', function(req,res){
@@ -152,7 +160,7 @@ app.post('/auth', function(req, res) {
 						res.redirect('/home');
 					}
 					if(!success){ // if the password is incorrect
-						console.log('Super wrong password dummy');
+						console.log('Wrong password');
 						res.redirect('back');
 					}
 					if(err){
@@ -172,6 +180,7 @@ app.post('/auth', function(req, res) {
 	else {
 		res.send('Please enter a username and password');
 		res.end();
+		console.log("hi");
 	}
 	//res.redirect('/');
 });
