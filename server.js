@@ -112,25 +112,32 @@ app.post('/submit', function(req,res){
 		res.redirect('/register');
 	}
 	else{
-		console.log('name:', firstname+ ' '+ lastname);
-		console.log('password: ', pwd+ ' || ' + pwd2);
-		bcrypt.hash(pwd, saltRounds, function(err, hash){
-			console.log(hash);
-			db.none('INSERT INTO users(username, firstname, lastname, password) VALUES (${username}, ${firstname}, ${lastname}, ${pwd})',
-				{
-					username: username,
-					firstname: firstname,
-					lastname: lastname,
-					pwd: hash
+		db.none('SELECT * FROM users WHERE username = $[usr]', {
+			usr: username
+		})
+			.then(result => {
+				console.log(result);
+				bcrypt.hash(pwd, saltRounds, function(err, hash){
+					console.log(hash);
+					db.none('INSERT INTO users(username, firstname, lastname, password) VALUES (${username}, ${firstname}, ${lastname}, ${pwd})',{
+						username: username,
+						firstname: firstname,
+						lastname: lastname,
+						pwd: hash
+					})
+				  	.then(function(result) {
+							console.log('Profile added to DB');
+							res.redirect('/login');
+						})
+						.catch(function(error){
+							console.log('error:', error);
+							res.redirect('back');
+						})
 				})
-		  	.then(function(result) {
-					console.log('Profile added to DB');
-					res.redirect('/login');
-				})
-				.catch(function(error){
-					console.log('error:', error);
-					res.redirect('back');
-				})
+			})
+			.catch(error =>{
+				console.log(username + " already exists");
+				res.redirect('back');
 			})
 	}
 });
