@@ -5,20 +5,25 @@ var session = require('express-session'); // session variable
 var path = require('path');
 var bcrypt = require('bcrypt');
 const saltRounds = 5;
-//var validator = require('express-validator');
+const { v4: uuidv4 } = require('uuid');
+
 app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(session({
+	genid: function(req){
+		return uuidv4()
+	},
 	saveUninitialized: false,
 	secret: 'secret',
 	resave: false
 }));
-//app.use(validator());
+
+
 
 
 // view engine
 app.set('view engine', 'ejs');
-
+// PostgreSQL connection
 var pgp = require('pg-promise')();
 
 // const dbConfig = {
@@ -37,6 +42,7 @@ app.use(express.static(__dirname + '/'));
 
 
 app.get('/', function(req,res){
+	console.log(req.session);
 	if(req.session.name===undefined){
 		res.redirect('/login');
 	}
@@ -46,12 +52,14 @@ app.get('/', function(req,res){
 })
 
 app.get('/home', function(req,res){
+	console.log(req.session);
 	if(req.session.name===undefined){
 		res.redirect('/login');
 	}
 	else if(req.session.name!==undefined){
 		res.render('pages/index', {
-			title: "Home of CU-Sprint"
+			title: "Home of CU-Sprint",
+			user: req.session.name
 		});
 	}
 });
@@ -63,7 +71,8 @@ app.get('/leaderboards', function(req, res){
 	}
 	else if(req.session.name!==undefined){
 		res.render('pages/leaderboards', {
-	    title: "Leaderboards"
+	    title: "Leaderboards",
+			user: req.session.name
 	  });
 	}
 
@@ -76,7 +85,8 @@ app.get('/game', function(req, res){
 	else if(req.session.name!==undefined){
 		res.render('pages/game', {
 	    title: "CU Sprint Lives Here!",
-	    local_css: "game.css"
+	    local_css: "game.css",
+			user: req.session.name
 	  });
 	}
 });
@@ -89,6 +99,7 @@ app.get('/blog', function(req,res){
 //make a db query toc echk if the session is there
 	else if(req.session.name!==undefined){
 	  res.render('pages/blog', {
+			user: req.session.name,
 	    title: "Blog"
 	  });
 	}
@@ -97,7 +108,8 @@ app.get('/blog', function(req,res){
 app.get('/register', function(req, res){
   res.render('pages/registration', {
     title: "Registration",
-    local_css: "register.css"
+    local_css: "register.css",
+		user: req.session.name
   });
 });
 
@@ -127,7 +139,11 @@ app.post('/submit', function(req,res){
 					})
 				  	.then(function(result) {
 							console.log('Profile added to DB');
-							res.redirect('/login');
+							res.render('pages/login', {
+								user: '',
+						    title: "Login",
+						    local_css: "login.css"
+						  });
 						})
 						.catch(function(error){
 							console.log('error:', error);
@@ -146,6 +162,7 @@ app.get('/login', function(req,res){
   //var user =
   //var sessionKey = randomNum;
   res.render('pages/login', {
+		user: '',
     title: "Login",
     local_css: "login.css"
   });
@@ -159,12 +176,15 @@ app.post('/auth', function(req, res) {
 		})
 			.then(result => {
 				console.log(result);
-				console.log(req.session.name);
+				console.log(req.session);
 				bcrypt.compare(req.body.password, result[0].password, function(err, success){
 					if(success){ //
 						console.log('JSON: ', result[0].password, 'Password: ', success);
 						req.session.name = username;
-						res.redirect('/home');
+						res.render('pages/index', {
+							title: "Home of CU-Sprint",
+							user: req.session.name
+						});
 					}
 					if(!success){ // if the password is incorrect
 						console.log('Wrong password');
@@ -191,6 +211,17 @@ app.post('/auth', function(req, res) {
 	}
 	//res.redirect('/');
 });
+
+app.get('/logout', function(req, res){
+	req.session.destroy(function(err){
+		console.log('error: ', err);
+	})
+	res.render('pages/login', {
+		user: '',
+		title: "Login",
+		local_css: "login.css"
+	})
+})
 
 
 
