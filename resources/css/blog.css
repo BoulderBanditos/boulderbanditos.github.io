@@ -1,0 +1,8 @@
+body {
+  background-image: url("../img/stadium.jpg");
+  min-height: 500px;
+  background-attachment: fixed;
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+}

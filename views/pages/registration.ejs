@@ -1,7 +1,8 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/menu.ejs %>
+  <div class="regform container">
     <div class="regform">
-      <h1> Register to play CU Sprint</h1>
+      <h1> Register to Play CU Sprint</h1>
       <form action = "/submit" method="post">
           <input type="text" name="fname" placeholder="First Name" required>
           <input type="text" name="lname" placeholder="Last Name" required>
@@ -11,5 +12,6 @@
         <input type="submit" value="Submit">
       </form>
     </div>
+  </div>
   </body>
 </html>

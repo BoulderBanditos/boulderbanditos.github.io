@@ -1,0 +1,38 @@
+body {
+  background-image: url("../img/campus.jpg");
+  min-height: 500px;
+  background-attachment: fixed;
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+}
+.wrapper {
+  padding-bottom: 50px;
+  padding-top: 50px;
+  padding-left: 150px;
+  padding-right: 150px;
+}
+.container.bg-dark.text-white {
+  padding: 25px;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  border: 2px solid black;
+}
+.card-wrapper h3 {
+  text-align: center;
+  color: white;
+}
+.card.bg-dark.text-white {
+  border: 2px solid black;
+}
+.card-wrapper {
+  padding-top: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  border: 2px solid black;
+  background-color: #2b3036;
+}
+.card-group {
+  padding-top: 5px;
+}

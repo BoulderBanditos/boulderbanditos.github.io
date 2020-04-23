@@ -1,16 +1,45 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/menu.ejs %>
+<style>
+  body {
+    background-color: black;
+    background-image: url("../resources/img/weblogo.png");
+    background-repeat: repeat-x, repeat y;
+  }
+  .table.table-bordered {
+    border: 3px solid black;
+    background-color: white;
+  }
+  .container.p-3.my-3.bg-warning h1{
+    text-align: center;
+  }
+</style>
     <div class="container">
       <br>
-      <div class="container p-3 my-3 bg-warning text-black text-center">
+      <div class="container p-3 my-3 bg-warning">
         <h1 class="display-4">Leaderboard</h1>
       </div>
 
       <table class="table table-bordered" id="leaderboard">
         <tr>
+          <th class="text-center">Rank</th>
           <th class="text-center">User</th>
           <th class="text-center">Score</th>
         </tr>
+
+          <% if(leaderData) { %>
+            <%
+            var i = 0;
+            var max = leaderData.length;
+            var leaderboard = '';
+            for(i; i < max; i++){
+              leaderboard += '<tr><td>'+(i+1)+'</td><td>'+leaderData[i].username+'</td><td>'+leaderData[i].highscore+'</td></tr>';
+            }
+            %>
+
+          <% } %>
+          <%- leaderboard %>
+
       </table>
 
     </body>

@@ -1,12 +1,11 @@
 .regform{
-  margin: auto;
-  width: 50%;
+  width: 350px;
+  margin: 0 auto;
   font-family: Tahoma, sans-serif;
-  display:flex;
 }
 .regform h1{
   text-align: center;
-  color: #4d4d4d;
+  color: white;
   font-size: 24px;
   padding: 20px 0 20px 0;
 }
@@ -14,25 +13,33 @@
 .regform input[type="text"] {
   width: 100%;
   padding: 15px;
-  border: 1px solid #dddddd;
+  border: 2px solid black;
   margin-bottom: 15px;
   box-sizing:border-box;
 }
 .regform input[type="submit"] {
   width: 100%;
   padding: 15px;
-  background-color: #535b63;
-  border: 0;
+  background-color: #89CFF0;
+  border: 2px solid black;
   box-sizing: border-box;
   cursor: pointer;
   font-weight: bold;
-  color: #ffffff;
+  color: #535b63;
 }
-label {
-  float: left;
+.regform.container {
+  width:400px;
+  border: 3px solid black;
+  padding-bottom: 20px;
+  height: 525px;
+  top: 50%;
+  margin-top: 8%;
+  background-color: #343a40;
 }
-
-h1 {
-  margin:auto;
-  width: 50%;
+body {
+  background-image: url("../img/koelbel.jpg");
+  background-attachment: fixed;
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
 }

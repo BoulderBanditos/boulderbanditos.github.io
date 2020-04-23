@@ -26,15 +26,15 @@ app.set('view engine', 'ejs');
 // PostgreSQL connection
 var pgp = require('pg-promise')();
 
-const dbConfig = {
-	host: 'localhost',
-	port: 5432,
-	database: 'gamedb',
-	user: 'postgres',
-	password: 'az'
-};
+// const dbConfig = {
+// 	host: 'localhost',
+// 	port: 5432,
+// 	database: 'gamedb',
+// 	user: 'postgres',
+// 	password: 'az'
+// };
 
-// const dbConfig = process.env.DATABASE_URL;
+const dbConfig = process.env.DATABASE_URL;
 
 var db = pgp(dbConfig);
 
@@ -63,7 +63,8 @@ app.get('/home', function(req,res){
 	else if(req.session.name!==undefined){
 		res.render('pages/index', {
 			title: "Home of CU-Sprint",
-			user: req.session.name
+			user: req.session.name,
+			local_css: "index.css"
 		});
 	}
 });
@@ -74,10 +75,21 @@ app.get('/leaderboards', function(req, res){
 		res.redirect('/login');
 	}
 	else if(req.session.name!==undefined){
-		res.render('pages/leaderboards', {
-	    title: "Leaderboards",
-			user: req.session.name
-	  });
+		db.any('SELECT highscore, username FROM users ORDER BY highscore DESC;')
+			.then(users => {
+				res.render('pages/leaderboards', {
+			    title: "Leaderboards",
+					user: req.session.name,
+					leaderData: users
+			  });
+			})
+			.catch(error => {
+				res.render('pages/leaderboards', {
+			    title: "Leaderboards",
+					user: req.session.name,
+					leaderData: ''
+			  });
+			})
 	}
 
 });
@@ -93,6 +105,7 @@ app.get('/game', function(req, res){
 			user: req.session.name
 	  });
 	}
+	// would need to create a post method for game finishing to add hisghscore to database
 });
 
 // ........blog?session_key="sessionkey u sent when logged in"
@@ -104,7 +117,8 @@ app.get('/blog', function(req,res){
 	else if(req.session.name!==undefined){
 	  res.render('pages/blog', {
 			user: req.session.name,
-	    title: "Blog"
+	    title: "Blog",
+			local_css: "blog.css"
 	  });
 	}
 });
@@ -187,7 +201,8 @@ app.post('/auth', function(req, res) {
 						req.session.name = username;
 						res.render('pages/index', {
 							title: "Home of CU-Sprint",
-							user: req.session.name
+							user: req.session.name,
+							local_css: "index.css"
 						});
 					}
 					if(!success){ // if the password is incorrect
@@ -248,8 +263,8 @@ app.get('/logout', function(req, res){
 // });
 
 
-app.listen(3000);
-console.log('3000 is the magic port');
+// app.listen(3000);
+// console.log('3000 is the magic port');
 
-// app.listen(process.env.PORT);
-// console.log('Connected to the internet');
+app.listen(process.env.PORT);
+console.log('Connected to the internet');

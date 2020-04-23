@@ -1,18 +1,7 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/menu.ejs %>
-  <style>
-    body {
-      background-image: url("../resources/img/campus.jpg");
-      min-height: 500px;
-      background-attachment: fixed;
-      background-size:     cover;
-      background-repeat:   no-repeat;
-      background-position: center center;
-    }
-  </style>
   <body>
-    <br></br>
-    <br></br>
+    <div class="wrapper">
     <div class = "container bg-dark text-white">
       <h1>Welcome to CU Sprint!</h1>
       <p>
@@ -30,7 +19,7 @@
 
     <br></br>
     <br></br>
-    <div class = "container bg-dark text-white">
+    <div class = "card-wrapper">
       <h3>Game Development Team</h3>
       <div class="card-group ">
         <div class="card bg-dark text-white" style="width:400px">
@@ -62,7 +51,7 @@
 
     <br></br>
     <br></br>
-    <div class = "container bg-dark text-white">
+    <div class = "card-wrapper">
       <h3>Web Development Team</h3>
       <div class="card-group ">
         <div class="card bg-dark text-white" style="width:400px">
@@ -92,5 +81,6 @@
         </div>
       </div>
     </div>
+  </div>
   </body>
 </html>
