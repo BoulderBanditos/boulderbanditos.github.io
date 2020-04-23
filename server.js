@@ -4,7 +4,7 @@ var bodyParser = require('body-parser'); //Ensure our body-parser tool has been 
 var session = require('express-session'); // session variable
 var path = require('path');
 var bcrypt = require('bcrypt');
-const saltRounds = 5;
+const saltRounds = 10;
 const { v4: uuidv4 } = require('uuid');
 
 app.use(bodyParser.json());              // support json encoded bodies
@@ -26,15 +26,15 @@ app.set('view engine', 'ejs');
 // PostgreSQL connection
 var pgp = require('pg-promise')();
 
-// const dbConfig = {
-// 	host: 'localhost',
-// 	port: 5432,
-// 	database: 'gamedb',
-// 	user: 'postgres',
-// 	password: 'az'
-// };
+const dbConfig = {
+	host: 'localhost',
+	port: 5432,
+	database: 'gamedb',
+	user: 'postgres',
+	password: 'az'
+};
 
-const dbConfig = process.env.DATABASE_URL;
+// const dbConfig = process.env.DATABASE_URL;
 
 var db = pgp(dbConfig);
 
@@ -44,7 +44,11 @@ app.use(express.static(__dirname + '/'));
 app.get('/', function(req,res){
 	console.log(req.session);
 	if(req.session.name===undefined){
-		res.redirect('/login');
+		res.render('pages/login', {
+			user: '',
+	    title: "Login",
+	    local_css: "login.css"
+	  });
 	}
 	if(req.session.name!== undefined){
 		res.redirect('/home');
@@ -244,6 +248,8 @@ app.get('/logout', function(req, res){
 // });
 
 
-// app.listen(3000);
-app.listen(process.env.PORT);
-// console.log('3000 is the magic port');
+app.listen(3000);
+console.log('3000 is the magic port');
+
+// app.listen(process.env.PORT);
+// console.log('Connected to the internet');

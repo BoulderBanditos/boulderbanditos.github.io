@@ -1,15 +1,18 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/menu.ejs %>
-		<div class="login-form">
-			<h1>Login Form</h1>
-			<form action="/auth" method="POST">
-				<input type="text" name="username" placeholder="Username" required>
-				<input type="password" name="password" placeholder="Password" required>
-				<input type="submit" value="Login">
-				<div class="form-group text-center">
-            <small><a href="/register">No account? Sign up!</a></small>
-        </div>
-			</form>
+		<div class="login-form container">
+			<div class="login-form">
+				<h1>Login</h1>
+				<form action="/auth" method="POST">
+					<input type="text" name="username" placeholder="Username" required>
+					<input type="password" name="password" placeholder="Password" required>
+
+					<input type="submit" value="Login">
+					<div class="form-group text-center">
+	            <small><a href="/register">No account? Sign up!</a></small>
+	        </div>
+				</form>
+			</div>
 		</div>
 	</body>
 </html>
