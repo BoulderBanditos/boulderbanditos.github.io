@@ -75,7 +75,7 @@ app.get('/leaderboards', function(req, res){
 		res.redirect('/login');
 	}
 	else if(req.session.name!==undefined){
-		db.any('SELECT highscore, username FROM users ORDER BY highscore DESC;')
+		db.any('SELECT highscore, username FROM users WHERE highscore!=null ORDER BY highscore DESC;')
 			.then(users => {
 				res.render('pages/leaderboards', {
 			    title: "Leaderboards",

@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html">
-    <title><% title %></title>
+    <% if(typeof title == 'string' && title){ %>
+      <title><%= title %> </title>
+    <% } %>
     <link href="../resources/TemplateData/favicon.ico">
     <link rel="stylesheet" href="../resources/TemplateData/style.css">
     <script src="../resources/TemplateData/UnityProgress.js"></script>
