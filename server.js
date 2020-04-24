@@ -26,15 +26,15 @@ app.set('view engine', 'ejs');
 // PostgreSQL connection
 var pgp = require('pg-promise')();
 
-const dbConfig = {
-	host: 'localhost',
-	port: 5432,
-	database: 'gamedb',
-	user: 'postgres',
-	password: 'az'
-};
+// const dbConfig = {
+// 	host: 'localhost',
+// 	port: 5432,
+// 	database: 'gamedb',
+// 	user: 'postgres',
+// 	password: 'az'
+// };
 
-// const dbConfig = process.env.DATABASE_URL;
+const dbConfig = process.env.DATABASE_URL;
 
 var db = pgp(dbConfig);
 
@@ -263,8 +263,8 @@ app.get('/logout', function(req, res){
 // });
 
 
-app.listen(3000);
-console.log('3000 is the magic port');
+// app.listen(3000);
+// console.log('3000 is the magic port');
 
-// app.listen(process.env.PORT);
-// console.log('Connected to the internet');
+app.listen(process.env.PORT);
+console.log('Connected to the internet');
