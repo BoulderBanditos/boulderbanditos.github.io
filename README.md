@@ -1,5 +1,4 @@
 # boulderbanditos.github.io
-web
 Our project, titled CU Sprint, is a Unity game designed around platforming across the CU Boulder campus. 
 It consists of six levels, each representing a different campus building. 
 The project is implemented using the Heroku application, complete with a user registration system. 
